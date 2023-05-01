@@ -4,6 +4,10 @@ _Emby 增强插件 (适用于 Chrome 内核浏览器)_
 
 ---
 
+## 效果速览
+
+https://user-images.githubusercontent.com/18238152/235517321-aa51ac6f-753a-4b68-a041-3e93fd6e82cd.mp4
+
 ## 使用须知
 
 **初次加载可能会有显示问题, 刷新载入看到, MISTY MEDIA 字样加载页面即可**
