@@ -6,11 +6,11 @@ class Home {
 
 		if (window.location.href.indexOf("home") != -1) {
 			const load = `
-            <div class="misty-loading">
-                <h1>MISTY MEDIA</h1>
-                <div class="mdl-spinner"><div class="mdl-spinner__layer mdl-spinner__layer-1"><div class="mdl-spinner__circle-clipper mdl-spinner__left"><div class="mdl-spinner__circle mdl-spinner__circleLeft"></div></div><div class="mdl-spinner__circle-clipper mdl-spinner__right"><div class="mdl-spinner__circle mdl-spinner__circleRight"></div></div></div></div>
-            </div>
-            `;
+			<div class="misty-loading">
+				<h1>MISTY MEDIA</h1>
+				<div class="mdl-spinner"><div class="mdl-spinner__layer mdl-spinner__layer-1"><div class="mdl-spinner__circle-clipper mdl-spinner__left"><div class="mdl-spinner__circle mdl-spinner__circleLeft"></div></div><div class="mdl-spinner__circle-clipper mdl-spinner__right"><div class="mdl-spinner__circle mdl-spinner__circleRight"></div></div></div></div>
+			</div>
+			`;
 			$("body").append(load);
 		}
 		CommonUtils.selectWait(".section0 .backdropCard", async () => {
@@ -24,19 +24,19 @@ class Home {
 			const channel = new BroadcastChannel(hash);
 			channel.addEventListener("message", (event) => resolve(event.data));
 			const script = `
-            <script class="I${hash}">
-                setTimeout(async ()=> {
-                    var client = await new Promise((resolve, reject) => {
-                        setInterval(() => {
-                            if (window.ApiClient != undefined) resolve(window.ApiClient);
-                        }, 16);
-                    });
-                    const channel = new BroadcastChannel("${hash}");
-                    channel.postMessage(await client.${func}(${arg}));
-                    document.querySelector("script.I${hash}").remove()
-                }, 16)
-            </script>
-            `;
+			<script class="I${hash}">
+				setTimeout(async ()=> {
+					var client = await new Promise((resolve, reject) => {
+						setInterval(() => {
+							if (window.ApiClient != undefined) resolve(window.ApiClient);
+						}, 16);
+					});
+					const channel = new BroadcastChannel("${hash}");
+					channel.postMessage(await client.${func}(${arg}));
+					document.querySelector("script.I${hash}").remove()
+				}, 16)
+			</script>
+			`;
 			$(document.head || document.documentElement).append(script);
 		});
 	}
@@ -57,13 +57,13 @@ class Home {
 	static async initBanner() {
 		const banner = `
 		<div class="misty-banner">
-            <div class="misty-banner-body">
-            </div>
-            <div class="misty-banner-library">
-                <div class="misty-banner-logos"></div>
-            </div>
-        </div>
-        `;
+			<div class="misty-banner-body">
+			</div>
+			<div class="misty-banner-library">
+				<div class="misty-banner-logos"></div>
+			</div>
+		</div>
+		`;
 		$(".homeSectionsContainer").prepend(banner);
 		$(".section0").detach().appendTo(".misty-banner-library");
 
@@ -73,18 +73,18 @@ class Home {
 		data.Items.forEach(async (item) => {
 			const detail = await this.getItem(item.Id),
 				itemHtml = `
-            <div class="misty-banner-item" id="${detail.Id}">
-                <img draggable="false" loading="eager" decoding="async" class="misty-banner-cover" src="${await this.getImageUrl(detail.Id, this.coverOptions)}" alt="Backdrop" style="">
-                <div class="misty-banner-info padded-left padded-right">
-                    <h1>${detail.Name}</h1>
-                    <div><p>${detail.Overview}</p></div>
-                    <div><button>MORE</button></div>
-                </div>
-            </div>
-            `,
+			<div class="misty-banner-item" id="${detail.Id}">
+				<img draggable="false" loading="eager" decoding="async" class="misty-banner-cover" src="${await this.getImageUrl(detail.Id, this.coverOptions)}" alt="Backdrop" style="">
+				<div class="misty-banner-info padded-left padded-right">
+					<h1>${detail.Name}</h1>
+					<div><p>${detail.Overview}</p></div>
+					<div><button>MORE</button></div>
+				</div>
+			</div>
+			`,
 				logoHtml = `
-                <img id="${detail.Id}" draggable="false" loading="auto" decoding="lazy" class="misty-banner-logo" data-banner="img-title" alt="Logo" src="${await this.getImageUrl(detail.Id, this.logoOptions)}">
-            `;
+				<img id="${detail.Id}" draggable="false" loading="auto" decoding="lazy" class="misty-banner-logo" data-banner="img-title" alt="Logo" src="${await this.getImageUrl(detail.Id, this.logoOptions)}">
+			`;
 			if (detail.ImageTags && detail.ImageTags.Logo) {
 				$(".misty-banner-body").append(itemHtml);
 				$(".misty-banner-logos").append(logoHtml);
