@@ -79,6 +79,7 @@
 	right: calc(3.4% + min(0.72em, max(0.48em, 1.78vw)));
 	opacity: 0;
 	transition: 1s;
+	transition-delay: .8s;
 }
 
 .misty-banner-logo.active {
