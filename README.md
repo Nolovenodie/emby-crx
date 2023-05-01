@@ -16,7 +16,7 @@ _Emby 增强插件 (适用于 Chrome 内核浏览器)_
 
 https://user-images.githubusercontent.com/18238152/235517763-5ee7fe21-87e7-414f-a1cd-b2c6fadbb8d5.mp4
 
-**使用方法**
+## 使用方法
 
 Chrome 扩展设置 > 开发者模式 > 加载已解压的扩展程序 > 直接选择源码即可
 
