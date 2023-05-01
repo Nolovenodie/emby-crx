@@ -83,7 +83,7 @@ class Home {
 			</div>
 			`,
 				logoHtml = `
-				<img id="${detail.Id}" draggable="false" loading="auto" decoding="lazy" class="misty-banner-logo" data-banner="img-title" alt="Logo" src="${await this.getImageUrl(detail.Id, this.logoOptions)}">
+			<img id="${detail.Id}" draggable="false" loading="auto" decoding="lazy" class="misty-banner-logo" data-banner="img-title" alt="Logo" src="${await this.getImageUrl(detail.Id, this.logoOptions)}">
 			`;
 			if (detail.ImageTags && detail.ImageTags.Logo) {
 				$(".misty-banner-body").append(itemHtml);
