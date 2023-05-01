@@ -1,0 +1,251 @@
+::-webkit-scrollbar {
+	width: .3em;
+}
+
+.view:not(.hide) .skinHeader {
+	width: 100%;
+	background-image: linear-gradient(black, transparent) !important;
+	background-color: unset !important;
+}
+
+.view[data-type=home]:not(.hide) .scrollSlider.padded-top-page {
+	padding-top: 0 !important;
+}
+
+.view:not(.hide) .itemsContainer-finepointerwrap{
+	flex-wrap: initial !important;
+	-webkit-flex-wrap: initial !important;
+}
+
+.view:not(.hide) .section0{
+	z-index: 2;
+}
+
+.view:not(.hide) .section0 .cardText,
+.view:not(.hide) .section0 .cardOverlayContainer,
+.view:not(.hide) .section0 .sectionTitleContainer {
+	display: none;
+}
+
+.view:not(.hide) .section0 .cardBox-touchzoom {
+	box-shadow: 0 8px 10px rgb(0 0 0 / 15%);
+}
+
+.view:not(.hide) .section0 .backdropCard {
+	transition: all 1.5s cubic-bezier(0, 1.75, .25, 1) 0s;
+}
+
+.view:not(.hide) .section0 .backdropCard:hover {
+	transform: scale(1.1) !important;
+}
+
+.view:not(.hide) .section0 .scrollbuttoncontainer {
+	top: 0;
+	bottom: calc(.8em - min(.72em, max(.48em, 1.78vw)) / 2);
+	background-color: rgba(0, 0, 0, 0);
+	overflow: visible;
+}
+
+.view:not(.hide) .section0 .scrollbuttoncontainer:hover > .emby-scrollbuttons-scrollbutton{
+	background-color: rgba(0, 0, 0, .5);
+	transform: scale(.85) !important;
+}
+
+.view:not(.hide) .tabs-viewmenubar-backgroundcontainer:not(.tabs-viewmenubar-backgroundcontainer-tv) {
+	background: 0 0 !important;
+	-webkit-backdrop-filter: blur(10px) !important;
+	backdrop-filter: blur(10px) !important;
+}
+
+.misty-banner {
+	position: relative;
+	overflow: hidden;
+}
+
+.misty-banner-cover {
+	width: 100%;
+	max-height: 100vh;
+	user-select: none;
+	object-fit: cover;
+}
+
+.misty-banner-logo {
+	position: absolute;
+	user-select: none;
+	object-fit: contain;
+	height: clamp(0rem, -2.182rem + 10.91vw, 6rem);
+	width: fit-content;
+	transform: translateY(calc(-50% - clamp(-2rem, -3.455rem + 7.27vw, 2rem)));
+	right: calc(3.4% + min(0.72em, max(0.48em, 1.78vw)));
+	opacity: 0;
+	transition: 1s;
+}
+
+.misty-banner-logo.active {
+	transform: translateY(calc(-100% - clamp(-2rem, -3.455rem + 7.27vw, 2rem)));
+	opacity: 1;
+}
+
+.misty-loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 1);
+	z-index: 999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.misty-loading h1 {
+	margin: 0;
+	margin-bottom: 3rem;
+}
+
+.misty-loading .mdl-spinner {
+	margin: 0;
+	position: initial
+}
+
+.misty-loading .mdl-spinner__layer-1 {
+	border-color: #fff;
+}
+
+.misty-banner-library {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	padding: clamp(0rem, -1.313rem + 3.75vw, 1.5rem) 0;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: end;
+	flex-direction: column;
+	background-image: linear-gradient(90deg, rgba(0, 0, 0, .6), transparent);
+}
+
+.misty-banner-body {
+	display: flex;
+	position: relative;
+	left: 0;
+	transition: all 1.5s cubic-bezier(0.15, 0.07, 0, 1) 0s;
+}
+
+.misty-banner-item {
+	min-width: 100%;
+}
+
+.misty-banner-info{
+	width: 100%;
+	margin: min(.72em, max(.48em, 1.78vw));
+	margin-top: 0;
+	position: absolute;
+	top: 0;
+	z-index: 1;
+	height: 100%;
+	height: -webkit-fill-available;
+	display: flex;
+	flex-direction: column;
+	justify-content: center
+}
+
+.misty-banner-info > * {
+	transition: all 2.5s cubic-bezier(0, 1.41, 0.36, 0.93) .4s;
+	transform: translateY(150%);
+	opacity: 0 !important;
+}
+
+.misty-banner-item.active .misty-banner-info > *{
+	transform: translateY(0);
+	opacity: 1 !important;
+}
+
+.misty-banner-info > div:nth-child(2) {
+	transition-delay: .6s;
+}
+.misty-banner-info > div:nth-child(3) {
+	transition-delay: .8s;
+}
+
+.misty-banner-info h1 {
+	font-size: clamp(2rem, -.362rem + 6.75vw, 4.7rem);
+	font-weight: bolder;
+	margin: 0;
+	text-shadow: 0 4px 10px rgb(0 0 0 / 20%);
+	/* margin-bottom: clamp(0rem, -.545rem + 2.73vw, 1.5rem); */
+}
+
+.misty-banner-info p {
+	font-size: clamp(.6rem, .4rem + 1vw, 1.6rem);
+	font-weight: bold;
+	max-width: 47%;
+	opacity: .7;
+	/* overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis; */
+	display: -webkit-box !important;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+.misty-banner-info button {
+	cursor: pointer;
+	margin-top: clamp(0rem, -2.625rem + 7.5vw, 3rem);
+	width: 6em;
+	height: 1.8em;
+	background-color: #fff;
+	border: none;
+	font-size: clamp(.6rem, -.275rem + 2.5vw, 1.6rem);
+	border-radius: 10px;
+	font-weight: bold;
+	letter-spacing: 2px;
+	box-shadow: 0 2px 7px rgba(1, 1, 1, -.8);
+	font-family: system-ui;
+	transition: .2s;
+}
+
+.misty-banner-info button:hover{
+	transform: scale(.95);
+}
+
+@media screen and (max-width: 62.5em) {
+	.misty-banner-info button {
+		margin-top: 0;
+	}
+}
+@media screen and (max-width: 52em) {
+	.misty-banner-info button,
+	.misty-banner-info p {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 35em) {
+	.misty-banner-info,
+	.misty-banner-logo 	{
+		display: none !important;
+	}
+	.misty-banner-body{
+		opacity: 0;
+	}
+}
+
+.misty-banner .backdropCard{
+	transition-duration: 0;
+	transform: translateY(80%);
+	opacity: 0;
+}
+
+.misty-banner-library-show{
+	transition-duration: 1.7s !important;
+	transform: translateY(0) !important;
+	opacity: 1 !important;
+}
+
+.misty-banner-library-overflow {
+	overflow: visible !important;
+}
