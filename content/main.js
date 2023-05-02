@@ -1,26 +1,48 @@
 class Home {
 	static start() {
+		this.cache = {
+			items: undefined,
+			item: new Map(),
+		};
 		this.itemQuery = { ImageTypes: "Backdrop", EnableImageTypes: "Logo,Backdrop", IncludeItemTypes: "Movie,Series", SortBy: "ProductionYear, PremiereDate, SortName", Recursive: true, ImageTypeLimit: 1, Limit: 10, Fields: "ProductionYear", SortOrder: "Descending", EnableUserData: false, EnableTotalRecordCount: false };
 		this.coverOptions = { type: "Backdrop", maxWidth: 3000 };
 		this.logoOptions = { type: "Logo", maxWidth: 3000 };
 
-		if (window.location.href.indexOf("home") != -1) {
-			const load = `
-			<div class="misty-loading">
-				<h1>MISTY MEDIA</h1>
-				<div class="mdl-spinner"><div class="mdl-spinner__layer mdl-spinner__layer-1"><div class="mdl-spinner__circle-clipper mdl-spinner__left"><div class="mdl-spinner__circle mdl-spinner__circleLeft"></div></div><div class="mdl-spinner__circle-clipper mdl-spinner__right"><div class="mdl-spinner__circle mdl-spinner__circleRight"></div></div></div></div>
-			</div>
-			`;
-			$("body").append(load);
-		}
+		setInterval(() => {
+			if (window.location.href.indexOf("/home") != -1) {
+				if ($(".view:not(.hide) .misty-banner").length == 0 && $(".misty-loading").length == 0) {
+					this.initLoading();
+				}
+				if ($(".hide .misty-banner").length != 0) {
+					$(".hide .misty-banner").remove();
+					clearInterval(this.bannerInterval);
+					this.init();
+				}
+			}
+		}, 100);
+		this.init();
+	}
+
+	static init() {
 		CommonUtils.selectWait(".section0 .card", async () => {
 			await this.initBanner();
 			this.initEvent();
 		});
 	}
 
+	/* 插入Loading */
+	static initLoading() {
+		const load = `
+		<div class="misty-loading">
+			<h1>MISTY MEDIA</h1>
+			<div class="mdl-spinner"><div class="mdl-spinner__layer mdl-spinner__layer-1"><div class="mdl-spinner__circle-clipper mdl-spinner__left"><div class="mdl-spinner__circle mdl-spinner__circleLeft"></div></div><div class="mdl-spinner__circle-clipper mdl-spinner__right"><div class="mdl-spinner__circle mdl-spinner__circleRight"></div></div></div></div>
+		</div>
+		`;
+		$("body").append(load);
+	}
+
 	static injectCode(code) {
-		let hash = md5(code);
+		let hash = md5(code + Math.random().toString());
 		return new Promise((resolve, reject) => {
 			const channel = new BroadcastChannel(hash);
 			channel.addEventListener("message", (event) => resolve(event.data));
@@ -52,11 +74,17 @@ class Home {
 	}
 
 	static getItems(query) {
-		return this.injectCall("getItems", "client.getCurrentUserId(), " + JSON.stringify(query));
+		if (this.cache.items == undefined) {
+			this.cache.items = this.injectCall("getItems", "client.getCurrentUserId(), " + JSON.stringify(query));
+		}
+		return this.cache.items;
 	}
 
 	static getItem(itemId) {
-		return this.injectCall("getItem", `client.getCurrentUserId(), "${itemId}"`);
+		if (!this.cache.item.has(itemId)) {
+			this.cache.item.set(itemId, this.injectCall("getItem", `client.getCurrentUserId(), "${itemId}"`));
+		}
+		return this.cache.item.get(itemId);
 	}
 
 	static getImageUrl(itemId, options) {
@@ -74,8 +102,8 @@ class Home {
 			</div>
 		</div>
 		`;
-		$(".homeSectionsContainer").prepend(banner);
-		$(".section0").detach().appendTo(".misty-banner-library");
+		$(".view:not(.hide) .homeSectionsContainer").prepend(banner);
+		$(".view:not(.hide) .section0").detach().appendTo(".view:not(.hide) .misty-banner-library");
 
 		// 插入数据
 		const data = await this.getItems(this.itemQuery);
@@ -113,7 +141,7 @@ class Home {
 			});
 			if (complete == $(".misty-banner-item").length && $(".misty-banner-item").length != 0) {
 				clearInterval(loading);
-				$(".misty-loading").fadeOut(500);
+				$(".misty-loading").fadeOut(500, () => $(".misty-loading").remove());
 				await CommonUtils.sleep(150);
 				// 置入场动画
 				let delay = 80; // 动媒体库画间隔
@@ -128,7 +156,7 @@ class Home {
 
 				// 滚屏逻辑
 				var index = 0;
-				setInterval(async () => {
+				this.bannerInterval = setInterval(async () => {
 					// 背景切换
 					index += index + 1 == $(".misty-banner-item").length ? -index : 1;
 					$(".misty-banner-body").css("left", -(index * 100).toString() + "%");

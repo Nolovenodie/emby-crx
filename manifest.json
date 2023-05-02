@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Emby Tools.",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Misty Emby Tools.",
 	"author": "Nolovenodie",
 	"homepage_url": "https://ssky.me",
@@ -21,7 +21,7 @@
 			"matches": ["<all_urls>"],
 			"include_globs": ["*://*:8096/*", "*://*:12308/*"],
 			"css": ["static/css/style.css"],
-			"js": ["static/js/jquery-3.6.0.min.js", "static/js/common-utils.js", "static/js/md5.js", "content/main.js"],
+			"js": ["static/js/jquery-3.6.0.min.js", "static/js/common-utils.js", "static/js/md5.min.js", "content/main.js"],
 			"run_at": "document_end"
 		}
 	],
