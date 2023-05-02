@@ -96,9 +96,9 @@ class Home {
 			<img id="${detail.Id}" draggable="false" loading="auto" decoding="lazy" class="misty-banner-logo" data-banner="img-title" alt="Logo" src="${await this.getImageUrl(detail.Id, this.logoOptions)}">
 			`;
 			if (detail.ImageTags && detail.ImageTags.Logo) {
-				$(".misty-banner-body").append(itemHtml);
 				$(".misty-banner-logos").append(logoHtml);
 			}
+			$(".misty-banner-body").append(itemHtml);
 			// console.log(item.Id, detail);
 		});
 
