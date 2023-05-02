@@ -15,7 +15,6 @@ class Home {
 				}
 				if ($(".hide .misty-banner").length != 0) {
 					$(".hide .misty-banner").remove();
-					clearInterval(this.bannerInterval);
 					this.init();
 				}
 				if ($(".section0 .card").length != 0 && $(".view:not(.hide) .misty-banner").length == 0) {
@@ -156,6 +155,7 @@ class Home {
 
 				// 滚屏逻辑
 				var index = 0;
+				clearInterval(this.bannerInterval);
 				this.bannerInterval = setInterval(async () => {
 					// 背景切换
 					index += index + 1 == $(".misty-banner-item").length ? -index : 1;
