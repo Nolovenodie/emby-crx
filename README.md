@@ -27,6 +27,7 @@ Chrome 扩展设置 > 开发者模式 > 加载已解压的扩展程序 > 直接�
 -   封装为单 JS/CSS, 供客户端使用
 -   内封装进 Misty Media 客户端
 -   播放跳转第三方播放器功能
+-   manifest version 3
 
 ---
 
