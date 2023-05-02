@@ -18,16 +18,16 @@ class Home {
 					clearInterval(this.bannerInterval);
 					this.init();
 				}
+				if ($(".section0 .card").length != 0 && $(".view:not(.hide) .misty-banner").length == 0) {
+					this.init();
+				}
 			}
 		}, 100);
-		this.init();
 	}
 
-	static init() {
-		CommonUtils.selectWait(".section0 .card", async () => {
-			await this.initBanner();
-			this.initEvent();
-		});
+	static async init() {
+		await this.initBanner();
+		this.initEvent();
 	}
 
 	/* 插入Loading */
