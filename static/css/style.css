@@ -22,16 +22,38 @@
 	padding-top: 0 !important;
 }
 
-.view:not(.hide) .itemsContainer-finepointerwrap{
+.view:not(.hide) .itemsContainer-finepointerwrap {
 	flex-wrap: initial !important;
 	-webkit-flex-wrap: initial !important;
 }
 
-.view:not(.hide) .section0{
+.view:not(.hide) .section0 {
 	z-index: 2;
 }
 
-.view:not(.hide) .section0 .cardText,
+.view:not(.hide) .section0 .cardText {
+	position: absolute;
+	top: 0;
+	display: flex; /* 如果不需要媒体库标题显示, 请将flex改为none */
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	background-color: rgba(0, 0, 0, .5);
+	font-weight: bolder;
+	font-size: larger;
+	border-radius: 0.3em;
+	transition: .2s;
+	opacity: 0;
+}
+
+.view:not(.hide) .section0 .backdropCard:hover .cardText {
+	opacity: 1;
+}
+
+.view:not(.hide) .section0 .cardText button {
+	text-decoration: none;
+}
+
 .view:not(.hide) .section0 .cardOverlayContainer,
 .view:not(.hide) .section0 .sectionTitleContainer {
 	display: none;
