@@ -149,7 +149,7 @@
 	min-width: 100%;
 }
 
-.misty-banner-info{
+.misty-banner-info {
 	width: 100%;
 	margin: min(.72em, max(.48em, 1.78vw));
 	margin-top: 0;
@@ -169,7 +169,7 @@
 	opacity: 0 !important;
 }
 
-.misty-banner-item.active .misty-banner-info > *{
+.misty-banner-item.active .misty-banner-info > * {
 	transform: translateY(0);
 	opacity: 1 !important;
 }
@@ -187,6 +187,11 @@
 	margin: 0;
 	text-shadow: 0 4px 10px rgb(0 0 0 / 20%);
 	/* margin-bottom: clamp(0rem, -.545rem + 2.73vw, 1.5rem); */
+	max-width: 80%;
+	display: -webkit-box !important;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
 }
 
 .misty-banner-info p {
