@@ -6,8 +6,6 @@ _Emby 增强/美化 插件 (适用于 Chrome 内核浏览器)_
 
 ## 使用须知
 
-**初次加载可能会有显示问题, 刷新载入看到, MISTY MEDIA 字样加载页面即可**
-
 **默认匹配所有 8096/12308 端口网页, 如需更改, 修改 manifest.json 文件内 include_globs 表达式即可**
 
 如: `"include_globs": ["*//tv.emby.media/*"]`
