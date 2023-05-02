@@ -2,6 +2,10 @@
 	width: .3em;
 }
 
+.mdl-spinner {
+	zoom: .5;
+}
+
 .skinHeader-withBackground{
 	width: 100%;
 	background-image: linear-gradient(rgba(0,0,0,.5), transparent);

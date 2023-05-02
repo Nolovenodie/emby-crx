@@ -13,7 +13,7 @@ class Home {
 			`;
 			$("body").append(load);
 		}
-		CommonUtils.selectWait(".section0 .backdropCard", async () => {
+		CommonUtils.selectWait(".section0 .card", async () => {
 			await this.initBanner();
 			this.initEvent();
 		});
@@ -79,7 +79,7 @@ class Home {
 
 		// 插入数据
 		const data = await this.getItems(this.itemQuery);
-		// console.log(data);
+		console.log(data);
 		data.Items.forEach(async (item) => {
 			const detail = await this.getItem(item.Id),
 				itemHtml = `
@@ -99,7 +99,7 @@ class Home {
 				$(".misty-banner-logos").append(logoHtml);
 			}
 			$(".misty-banner-body").append(itemHtml);
-			// console.log(item.Id, detail);
+			console.log(item.Id, detail);
 		});
 
 		let complete = 0;
@@ -122,7 +122,7 @@ class Home {
 
 				await CommonUtils.sleep(200); // 间隔动画
 				$(".section0 > div").addClass("misty-banner-library-overflow"); // 关闭overflow 防止媒体库动画溢出
-				$(".misty-banner .backdropCard").each((i, dom) => setTimeout(() => $(dom).addClass("misty-banner-library-show"), i * delay)); // 媒体库动画
+				$(".misty-banner .card").each((i, dom) => setTimeout(() => $(dom).addClass("misty-banner-library-show"), i * delay)); // 媒体库动画
 				await CommonUtils.sleep(delay * 8 + 1000); // 等待媒体库动画完毕
 				$(".section0 > div").removeClass("misty-banner-library-overflow"); // 开启overflow 防止无法滚动
 
@@ -165,7 +165,7 @@ class Home {
 		// 将新元素插入到原始元素的位置上
 		element.parentNode.insertBefore(newElement, element);
 		// 重新挂载媒体库事件
-		const librarys = document.querySelectorAll(".view:not(.hide) .section0 .backdropCard");
+		const librarys = document.querySelectorAll(".view:not(.hide) .section0 .card");
 		librarys.forEach(library => {
 			library.addEventListener("click", () => {
 				const dataId = library.getAttribute("data-id");
