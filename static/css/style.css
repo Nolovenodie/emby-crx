@@ -2,7 +2,13 @@
 	width: .3em;
 }
 
-.view:not(.hide) .skinHeader {
+.skinHeader-withBackground{
+	width: 100%;
+	background-image: linear-gradient(rgba(0,0,0,.5), transparent);
+	background-color: unset;
+}
+
+.view:not(.hide) .skinHeader, .skinHeader-withBackground.headroom-scrolling {
 	width: 100%;
 	background-image: linear-gradient(black, transparent) !important;
 	background-color: unset !important;

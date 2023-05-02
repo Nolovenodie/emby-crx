@@ -149,10 +149,25 @@ class Home {
 		const script = `
 		// 挂载appRouter
 		if (!window.appRouter) window.appRouter = (await window.require(["appRouter"]))[0];
+		// 获取带有 is 属性为 emby-itemscontainer 的元素
+		const element = document.querySelector('.section0 div[is="emby-itemscontainer"]');
+		// 创建新元素，并将旧元素的所有子节点添加到其中
+		const newElement = document.createElement("div");
+		while (element.firstChild) {
+			newElement.appendChild(element.firstChild);
+		}
+		// 移除 is 属性以隔离原事件
+		newElement.removeAttribute("is");
+		// 复制原始元素的 class 属性到新元素中
+		Array.from(element.classList).forEach(cls => {
+			newElement.classList.add(cls);
+		});
+		// 将新元素插入到原始元素的位置上
+		element.parentNode.insertBefore(newElement, element);
 		// 重新挂载媒体库事件
 		const librarys = document.querySelectorAll(".view:not(.hide) .section0 .backdropCard");
 		librarys.forEach(library => {
-			library.addEventListener("mousedown", () => {
+			library.addEventListener("click", () => {
 				const dataId = library.getAttribute("data-id");
 				appRouter.showItem(dataId)
 			});
