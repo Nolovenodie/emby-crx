@@ -206,4 +206,6 @@ class Home {
 }
 
 // 运行
-Home.start();
+if ($("meta[name=application-name]").attr("content") == "Emby") {
+	Home.start();
+}

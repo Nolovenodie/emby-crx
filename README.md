@@ -4,17 +4,13 @@ _Emby 增强/美化 插件 (适用于 Chrome 内核浏览器)_
 
 ---
 
-## 使用须知
-
-**默认匹配所有 8096/12308 端口网页, 如需更改, 修改 manifest.json 文件内 include_globs 表达式即可**
-
-如: `"include_globs": ["*//tv.emby.media/*"]`
-
-如不需要 媒体库 鼠标悬浮 后居中显示库名, 请更改 static\css\style.css 文件内 第 37 行
-
 ## 动画预览 (因 LOGO 入场动画过于优先, 效果可能略差, 最新版已更改, 视频等待更新, 具体效果可以自行尝试)
 
 https://user-images.githubusercontent.com/18238152/235517763-5ee7fe21-87e7-414f-a1cd-b2c6fadbb8d5.mp4
+
+## 使用须知
+
+如不需要 媒体库 鼠标悬浮 后居中显示库名, 请更改 static\css\style.css 文件内 第 37 行
 
 ## 使用方法
 
