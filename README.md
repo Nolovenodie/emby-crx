@@ -1,6 +1,6 @@
 # Emby Crx
 
-_Emby 增强插件 (适用于 Chrome 内核浏览器)_
+_Emby 增强/美化 插件 (适用于 Chrome 内核浏览器)_
 
 ---
 
