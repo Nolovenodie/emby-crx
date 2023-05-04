@@ -1,12 +1,12 @@
 ::-webkit-scrollbar {
-	width: .3em;
+	width: .3em !important;
 }
 
 .mdl-spinner {
 	zoom: .5;
 }
 
-.skinHeader-withBackground{
+.skinHeader-withBackground {
 	width: 100%;
 	background-image: linear-gradient(rgba(0,0,0,.5), transparent);
 	background-color: unset;
@@ -120,7 +120,7 @@
 }
 
 .misty-loading {
-	z-index: 999;
+	z-index: 9999;
 	position: fixed;
 	top: 0;
 	left: 0;

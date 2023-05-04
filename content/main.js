@@ -25,6 +25,8 @@ class Home {
 	}
 
 	static async init() {
+		// Beta
+		$(".view:not(.hide)").attr("data-type", "home");
 		await this.initBanner();
 		this.initEvent();
 	}
@@ -206,6 +208,6 @@ class Home {
 }
 
 // 运行
-if ($("meta[name=application-name]").attr("content") == "Emby") {
+if ($("meta[name=application-name]").attr("content") == "Emby" || $(".accent-emby") != undefined) {
 	Home.start();
 }
