@@ -9,7 +9,7 @@ class Home {
 		this.logoOptions = { type: "Logo", maxWidth: 3000 };
 
 		setInterval(() => {
-			if (window.location.href.indexOf("/home") != -1) {
+			if (window.location.href.indexOf("!/home") != -1) {
 				if ($(".view:not(.hide) .misty-banner").length == 0 && $(".misty-loading").length == 0) {
 					this.initLoading();
 				}
