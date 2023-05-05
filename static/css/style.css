@@ -205,6 +205,7 @@
 }
 
 .misty-banner-info h1 {
+	color: #fff !important;
 	font-size: clamp(2rem, -.362rem + 6.75vw, 4.7rem);
 	font-weight: bolder;
 	margin: 0;
@@ -218,6 +219,7 @@
 }
 
 .misty-banner-info p {
+	color: #fff !important;
 	font-size: clamp(.6rem, .4rem + 1vw, 1.6rem);
 	font-weight: bold;
 	max-width: 47%;
