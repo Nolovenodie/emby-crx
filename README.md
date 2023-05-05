@@ -27,9 +27,9 @@ Chrome 扩展设置 > 开发者模式 > 加载已解压的扩展程序 > 直接�
 _无需使用插件, 直接部署至服务端, 用户无缝使用_
 
     # Docker 版
-    # 国内
+    # 国内请使用:
     docker exec EmbyServer /bin/sh -c 'cd /system/dashboard-ui && wget -O - https://tinyurl.com/3m72wwtk | sh'
-    # 国外
+    # 国外请使用:
     docker exec EmbyServer /bin/sh -c 'cd /system/dashboard-ui && wget -O - https://tinyurl.com/2p97xcpd | sh'
 
     # 正常版
