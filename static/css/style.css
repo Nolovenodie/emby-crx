@@ -7,7 +7,7 @@
 }
 
 .skinHeader-withBackground {
-	width: 100%;
+	right: 0 !important;
 	background-image: linear-gradient(rgba(0,0,0,.5), transparent);
 	background-color: unset;
 }
