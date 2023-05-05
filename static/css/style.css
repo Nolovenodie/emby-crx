@@ -106,7 +106,7 @@
 	user-select: none;
 	object-fit: contain;
 	height: clamp(0rem, -2.182rem + 10.91vw, 6rem);
-	width: fit-content;
+	/* width: fit-content; */
 	transform: translateY(calc(-50% - clamp(-2rem, -3.455rem + 7.27vw, 2rem)));
 	right: calc(3.4% + min(0.72em, max(0.48em, 1.78vw)));
 	opacity: 0;
@@ -156,7 +156,7 @@
 	padding: clamp(0rem, -1.313rem + 3.75vw, 1.5rem) 0;
 	box-sizing: border-box;
 	display: flex;
-	justify-content: end;
+	justify-content: flex-end;
 	flex-direction: column;
 	background-image: linear-gradient(90deg, rgba(0, 0, 0, .6), transparent);
 }
