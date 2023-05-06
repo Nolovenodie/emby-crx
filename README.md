@@ -28,6 +28,7 @@ _无需使用插件, 直接部署至服务端, 用户无缝使用_
 
     # Docker 版 (如遇脚本更新, 重新执行即可)
     # 注意: 需要能访问的上Github的环境, 如果不懂 请在群内@我留言
+    # EmbyServer 为容器名, 如果你的容器名不是这个 请改成正确的!
     docker exec EmbyServer /bin/sh -c 'cd /system/dashboard-ui && wget -O - https://tinyurl.com/2p97xcpd | sh'
 
     # 正常版
