@@ -13,7 +13,7 @@ wget https://raw.githubusercontent.com/Nolovenodie/emby-crx/master/content/main.
 content=$(cat index.html)
 
 # 检查index.html是否包含emby-crx
-if [[ "$content" == *"emby-crx"* ]]; then
+if grep -q "emby-crx" index.html; then
     echo "Index.html already contains emby-crx, skipping insertion."
 else
     # 定义要插入的代码
