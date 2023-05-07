@@ -15,7 +15,6 @@ class Home {
 				}
 				if ($(".hide .misty-banner").length != 0) {
 					$(".hide .misty-banner").remove();
-					this.init();
 				}
 				if ($(".section0 .card").length != 0 && $(".view:not(.hide) .misty-banner").length == 0) {
 					this.init();
