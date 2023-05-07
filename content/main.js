@@ -27,6 +27,10 @@ class Home {
 	static async init() {
 		// Beta
 		$(".view:not(.hide)").attr("data-type", "home");
+		// Loading
+		const serverName = await this.injectCall("serverName", "");
+		$(".misty-loading h1").text(serverName).addClass("active");
+		// Banner
 		await this.initBanner();
 		this.initEvent();
 	}
@@ -35,7 +39,7 @@ class Home {
 	static initLoading() {
 		const load = `
 		<div class="misty-loading">
-			<h1>MISTY MEDIA</h1>
+			<h1></h1>
 			<div class="mdl-spinner"><div class="mdl-spinner__layer mdl-spinner__layer-1"><div class="mdl-spinner__circle-clipper mdl-spinner__left"><div class="mdl-spinner__circle mdl-spinner__circleLeft"></div></div><div class="mdl-spinner__circle-clipper mdl-spinner__right"><div class="mdl-spinner__circle mdl-spinner__circleRight"></div></div></div></div>
 		</div>
 		`;
@@ -81,11 +85,14 @@ class Home {
 		return this.cache.items;
 	}
 
-	static getItem(itemId) {
-		if (!this.cache.item.has(itemId)) {
-			this.cache.item.set(itemId, this.injectCall("getItem", `client.getCurrentUserId(), "${itemId}"`));
+	static async getItem(itemId) {
+		// 双缓存 优先使用 WebStorage
+		if (typeof Storage !== "undefined" && !localStorage.getItem("CACHE|" + itemId) && !this.cache.item.has(itemId)) {
+			const data = JSON.stringify(await this.injectCall("getItem", `client.getCurrentUserId(), "${itemId}"`));
+			if (typeof Storage !== "undefined") localStorage.setItem("CACHE|" + itemId, data);
+			else this.cache.item.set(itemId, data);
 		}
-		return this.cache.item.get(itemId);
+		return JSON.parse(typeof Storage !== "undefined" ? localStorage.getItem("CACHE|" + itemId) : this.cache.item.get(itemId));
 	}
 
 	static getImageUrl(itemId, options) {
@@ -179,28 +186,12 @@ class Home {
 		const script = `
 		// 挂载appRouter
 		if (!window.appRouter) window.appRouter = (await window.require(["appRouter"]))[0];
-		// 获取带有 is 属性为 emby-itemscontainer 的元素
-		const element = document.querySelector('.section0 div[is="emby-itemscontainer"]');
-		// 创建新元素，并将旧元素的所有子节点添加到其中
-		const newElement = document.createElement("div");
-		while (element.firstChild) {
-			newElement.appendChild(element.firstChild);
-		}
-		// 移除 is 属性以隔离原事件
-		newElement.removeAttribute("is");
-		// 复制原始元素的 class 属性到新元素中
-		Array.from(element.classList).forEach(cls => {
-			newElement.classList.add(cls);
-		});
-		// 将新元素插入到原始元素的位置上
-		element.parentNode.insertBefore(newElement, element);
-		// 重新挂载媒体库事件
-		const librarys = document.querySelectorAll(".view:not(.hide) .section0 .card");
+		// 修复library事件参数
+		const serverId = ApiClient._serverInfo.Id,
+			librarys = document.querySelectorAll(".view:not(.hide) .section0 .card");
 		librarys.forEach(library => {
-			library.addEventListener("click", () => {
-				const dataId = library.getAttribute("data-id");
-				appRouter.showItem(dataId)
-			});
+			library.setAttribute("data-serverid", serverId);
+			library.setAttribute("data-type", "CollectionFolder");
 		});
 		`;
 		this.injectCode(script);

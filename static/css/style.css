@@ -18,7 +18,7 @@
 	background-color: unset !important;
 }
 
-.view[data-type=home]:not(.hide) .scrollSlider.padded-top-page {
+.view[data-type=home]:not(.hide) > div:nth-child(1) .scrollSlider.padded-top-page {
 	padding-top: 0 !important;
 }
 
@@ -120,14 +120,13 @@
 }
 
 .misty-loading {
-	z-index: 9999 !important;
+	z-index: 99999999;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 1);
-	z-index: 999;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -137,11 +136,20 @@
 .misty-loading h1 {
 	margin: 0;
 	margin-bottom: 3rem;
+	text-transform: uppercase;
+	transition: .8s;
+	transform: scale(1.15);
+	opacity: 0;
+}
+
+.misty-loading h1.active {
+	transform: scale(1);
+	opacity: 1;
 }
 
 .misty-loading .mdl-spinner {
 	margin: 0;
-	position: initial
+	position: initial;
 }
 
 .misty-loading .mdl-spinner__layer-1 {
@@ -275,13 +283,13 @@
 	}
 }
 
-.misty-banner .backdropCard{
+.misty-banner .backdropCard {
 	transition-duration: 0;
 	transform: translateY(80%);
 	opacity: 0;
 }
 
-.misty-banner-library-show{
+.misty-banner-library-show {
 	transition-duration: 1.7s !important;
 	transform: translateY(0) !important;
 	opacity: 1 !important;
