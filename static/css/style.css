@@ -54,9 +54,13 @@
 	text-decoration: none;
 }
 
-.view:not(.hide) .section0 .cardOverlayContainer,
+.view:not(.hide) .section0 .cardOverlayContainer {
+	background: none;
+}
+
+.view:not(.hide) .section0 .cardOverlayContainer label,
 .view:not(.hide) .section0 .sectionTitleContainer {
-	display: none;
+	display: none !important;
 }
 
 .view:not(.hide) .section0 .cardBox-touchzoom {
