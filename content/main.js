@@ -164,7 +164,7 @@ class Home {
 				// 滚屏逻辑
 				var index = 0;
 				clearInterval(this.bannerInterval);
-				this.bannerInterval = setInterval(async () => {
+				this.bannerInterval = setInterval(() => {
 					// 背景切换
 					index += index + 1 == $(".misty-banner-item").length ? -index : 1;
 					$(".misty-banner-body").css("left", -(index * 100).toString() + "%");
