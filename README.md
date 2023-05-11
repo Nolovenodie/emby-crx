@@ -1,5 +1,7 @@
 # Emby Crx
 
+# 警告: 媒体库封面为原创设计, 未经授权请勿模仿使用!
+
 _Emby 增强/美化 插件 (适用于 Chrome 内核浏览器)_
 
 ---
@@ -46,5 +48,7 @@ _无需使用插件, 直接部署至服务端, 用户无缝使用_
 ---
 
 ## 效果预览
+
+# 警告: 媒体库封面为原创设计, 未经授权请勿模仿使用!
 
 ![1](https://user-images.githubusercontent.com/18238152/235510774-666d9006-cbad-4b97-9a73-ad5334cb7eee.png) ![2](https://user-images.githubusercontent.com/18238152/235510867-4b71a870-6be6-46a5-b988-527d667b020d.png) ![3](https://user-images.githubusercontent.com/18238152/235510872-ef88ae87-6693-4c11-b7ad-0f05e1a5c583.png) ![4](https://user-images.githubusercontent.com/18238152/235510874-f2fe4715-eb68-4f7a-ac49-50dc5f4ef5aa.png)
