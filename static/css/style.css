@@ -103,6 +103,8 @@
 	max-height: 100vh;
 	user-select: none;
 	object-fit: cover;
+	-webkit-mask-image: linear-gradient(to top, transparent 0%, black 30%);
+	mask-image: linear-gradient(to top, transparent 0%, black 30%);
 }
 
 .misty-banner-logo {
