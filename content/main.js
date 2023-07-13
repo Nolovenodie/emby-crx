@@ -7,8 +7,7 @@ class Home {
 		this.itemQuery = { ImageTypes: "Backdrop", EnableImageTypes: "Logo,Backdrop", IncludeItemTypes: "Movie,Series", SortBy: "ProductionYear, PremiereDate, SortName", Recursive: true, ImageTypeLimit: 1, Limit: 10, Fields: "ProductionYear", SortOrder: "Descending", EnableUserData: false, EnableTotalRecordCount: false };
 		this.coverOptions = { type: "Backdrop", maxWidth: 3000 };
 		this.logoOptions = { type: "Logo", maxWidth: 3000 };
-        if (!'BroadcastChannel' in window && !'postMessage' in window)
-            return;
+		if (!"BroadcastChannel" in window && !"postMessage" in window) return;
 		setInterval(() => {
 			if (window.location.href.indexOf("!/home") != -1) {
 				if ($(".view:not(.hide) .misty-banner").length == 0 && $(".misty-loading").length == 0) {
@@ -49,10 +48,10 @@ class Home {
 	static injectCode(code) {
 		let hash = md5(code + Math.random().toString());
 		return new Promise((resolve, reject) => {
-			if ('BroadcastChannel' in window) {
+			if ("BroadcastChannel" in window) {
 				const channel = new BroadcastChannel(hash);
 				channel.addEventListener("message", (event) => resolve(event.data));
-			} else if ('postMessage' in window) {
+			} else if ("postMessage" in window) {
 				window.addEventListener("message", (event) => {
 					if (event.data.channel === hash) {
 						resolve(event.data.message);
@@ -64,10 +63,10 @@ class Home {
 				setTimeout(async ()=> {
 					async function R${hash}(){${code}};
 					if ("BroadcastChannel" in window) {
-						  const channel = new BroadcastChannel("${hash}");
-						  channel.postMessage(await R${hash}());
-				    } else if ('postMessage' in window) {
-						  window.parent.postMessage({channel:"${hash}",message:await R${hash}()}, "*");
+						const channel = new BroadcastChannel("${hash}");
+						channel.postMessage(await R${hash}());
+					} else if ('postMessage' in window) {
+						window.parent.postMessage({channel:"${hash}",message:await R${hash}()}, "*");
 					}
 					document.querySelector("script.I${hash}").remove()
 				}, 16)
