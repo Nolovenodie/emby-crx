@@ -34,7 +34,7 @@ _无需使用插件, 直接部署至服务端, 用户无缝使用_
     docker exec EmbyServer /bin/sh -c 'cd /system/dashboard-ui && wget -O - https://tinyurl.com/2p97xcpd | sh'
 
     # 正常版
-    # 参考教程: https://cangshui.net/5167.html
+    # 参考教程(非官方): https://cangshui.net/5167.html
 
 ---
 
