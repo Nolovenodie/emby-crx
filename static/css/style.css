@@ -13,7 +13,7 @@
 }
 
 .view:not(.hide) .skinHeader, .skinHeader-withBackground.headroom-scrolling {
-	width: 100%;
+	width: auto;
 	background-image: linear-gradient(black, transparent) !important;
 	background-color: unset !important;
 }
