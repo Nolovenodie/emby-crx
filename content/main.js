@@ -124,7 +124,9 @@ class Home {
 		</div>
 		`;
 		$(".view:not(.hide) .homeSectionsContainer").prepend(banner);
+		const items = $(".view:not(.hide) .section0 .emby-scroller .itemsContainer")[0].items;
 		$(".view:not(.hide) .section0").detach().appendTo(".view:not(.hide) .misty-banner-library");
+		$(".view:not(.hide) .section0 .emby-scroller .itemsContainer")[0].items = items;
 
 		// 插入数据
 		const data = await this.getItems(this.itemQuery);
@@ -197,12 +199,12 @@ class Home {
 		// 挂载appRouter
 		if (!window.appRouter) window.appRouter = (await window.require(["appRouter"]))[0];
 		// 修复library事件参数
-		const serverId = ApiClient._serverInfo.Id,
-			librarys = document.querySelectorAll(".view:not(.hide) .section0 .card");
-		librarys.forEach(library => {
-			library.setAttribute("data-serverid", serverId);
-			library.setAttribute("data-type", "CollectionFolder");
-		});
+		//const serverId = ApiClient._serverInfo.Id,
+		//	librarys = document.querySelectorAll(".view:not(.hide) .section0 .card");
+		//librarys.forEach(library => {
+		//	library.setAttribute("data-serverid", serverId);
+		//	library.setAttribute("data-type", "CollectionFolder");
+		//});
 		`;
 		this.injectCode(script);
 	}
