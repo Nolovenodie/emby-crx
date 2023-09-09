@@ -179,14 +179,16 @@ class Home {
 		clearInterval(this.bannerInterval);
 		this.bannerInterval = setInterval(() => {
 			// 背景切换
-			index += index + 1 == $(".misty-banner-item").length ? -index : 1;
-			$(".misty-banner-body").css("left", -(index * 100).toString() + "%");
-			// 信息切换
-			$(".misty-banner-item.active").removeClass("active");
-			let id = $(".misty-banner-item").eq(index).addClass("active").attr("id");
-			// LOGO切换
-			$(".misty-banner-logo.active").removeClass("active");
-			$(`.misty-banner-logo[id=${id}]`).addClass("active");
+			if (window.location.href.endsWith("home") && !document.hidden) {
+				index += index + 1 == $(".misty-banner-item").length ? -index : 1;
+				$(".misty-banner-body").css("left", -(index * 100).toString() + "%");
+				// 信息切换
+				$(".misty-banner-item.active").removeClass("active");
+				let id = $(".misty-banner-item").eq(index).addClass("active").attr("id");
+				// LOGO切换
+				$(".misty-banner-logo.active").removeClass("active");
+				$(`.misty-banner-logo[id=${id}]`).addClass("active");
+			}
 		}, 8000);
 	}
 
