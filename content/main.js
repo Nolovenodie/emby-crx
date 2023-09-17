@@ -174,10 +174,11 @@ class Home {
 		$(".view:not(.hide) .section0 .emby-scrollbuttons").remove();
 		const items = $(".view:not(.hide) .section0 .emby-scroller .itemsContainer")[0].items;
 		$(".view:not(.hide) .section0").detach().appendTo(".view:not(.hide) .misty-banner-library");
-		$(".view:not(.hide) .section0 .emby-scroller .itemsContainer")[0].items = items;
 		
 		$(".misty-loading").fadeOut(500, () => $(".misty-loading").remove());
 		await CommonUtils.sleep(150);
+		$(".view:not(.hide) .section0 .emby-scroller .itemsContainer")[0].items = items;
+		
 		// 置入场动画
 		let delay = 80; // 动媒体库画间隔
 		let id = $(".misty-banner-item").eq(0).addClass("active").attr("id"); // 初次信息动画
