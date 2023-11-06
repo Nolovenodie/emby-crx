@@ -269,23 +269,23 @@
 
 @media screen and (max-width: 62.5em) {
 	.misty-banner-info button {
-		margin-top: 0;
+		/*margin-top: 0;*/
 	}
 }
 @media screen and (max-width: 52em) {
 	.misty-banner-info button,
 	.misty-banner-info p {
-		display: none;
+		/*display: none;*/
 	}
 }
 
 @media screen and (max-width: 35em) {
 	.misty-banner-info,
 	.misty-banner-logo 	{
-		display: none !important;
+		/*display: none !important;*/
 	}
 	.misty-banner-body{
-		opacity: 0;
+		/*opacity: 0;*/
 	}
 }
 
