@@ -4,8 +4,37 @@ class Home {
 			items: undefined,
 			item: new Map(),
 		};
-		this.itemQuery = { ImageTypes: "Backdrop", EnableImageTypes: "Logo,Backdrop", IncludeItemTypes: "Movie,Series", SortBy: "ProductionYear, PremiereDate, SortName", Recursive: true, ImageTypeLimit: 1, Limit: 10, Fields: "ProductionYear", SortOrder: "Descending", EnableUserData: false, EnableTotalRecordCount: false };
+		this.config = new Config();
+		this.itemQuery = this.config.itemQuery;
 		this.coverOptions = { type: "Backdrop", maxWidth: 3000 };
+		setInterval(() => {
+			//如果高度大于宽度，判断为竖屏
+			if($(".mainAnimatedPages").width()<$(".mainAnimatedPages").height()){
+				//如果横竖屏发生切换，直接开始新一轮次
+				if(this.coverOptions.type != "Primary")
+						this.index = -1;
+				this.coverOptions = { type: "Primary", maxWidth: 3000 };
+				//logo大小
+				$(".misty-banner-logo").css("height","clamp(0rem, -2.182rem + 18.91vw, 6rem)");
+				//logo位置
+				$(".misty-banner-logos").css("margin-bottom","3em");
+				//标题字体大小
+				$(".misty-banner-info h1").css("font-size","clamp(2rem, -.362rem + 4.75vw, 4.7rem)");
+				//简介字体大小
+				$(".misty-banner-info p").css("font-size","clamp(.6rem, .4rem + 1.6vw, 1.6rem)");
+				//简介行数
+				$(".misty-banner-info p").css("-webkit-line-clamp","4");
+			} else {//横屏
+				if(this.coverOptions.type != "Backdrop")
+						this.index = -1;
+				this.coverOptions = { type: "Backdrop", maxWidth: 3000 };
+				$(".misty-banner-logo").css("height","clamp(0rem, -2.182rem + 10.91vw, 6rem)");
+				$(".misty-banner-logos").css("margin-bottom","0");
+				$(".misty-banner-info h1").css("font-size","clamp(2rem, -.362rem + 6.75vw, 4.7rem)");
+				$(".misty-banner-info p").css("font-size","clamp(.6rem, .4rem + 1vw, 1.6rem)");
+				$(".misty-banner-info p").css("-webkit-line-clamp","2");
+			}
+		},1000);
 		this.logoOptions = { type: "Logo", maxWidth: 3000 };
 		this.initStart = false;
 		setInterval(() => {
@@ -92,12 +121,20 @@ class Home {
 	}
 
 	static getItems(query) {
-		if (this.cache.items == undefined) {
-			this.cache.items = this.injectCall("getItems", "client.getCurrentUserId(), " + JSON.stringify(query));
-		}
-		return this.cache.items;
+		//由于要合并多个媒体库所以放弃做缓存
+		return this.injectCall("getItems", "client.getCurrentUserId(), " + JSON.stringify(query));
 	}
 
+	static itemsRandom(array){
+		let res = [], random;
+		while(array.length>0){
+			random = Math.floor(Math.random()*array.length);
+			res.push(array[random]);
+			array.splice(random, 1);
+		}
+		return res;
+	}
+	
 	static async getItem(itemId) {
 		// 双缓存 优先使用 WebStorage
 		if (typeof Storage !== "undefined" && !localStorage.getItem("CACHE|" + itemId) && !this.cache.item.has(itemId)) {
@@ -112,25 +149,8 @@ class Home {
 		return this.injectCall("getImageUrl", itemId + ", " + JSON.stringify(options));
 	}
 
-	/* 插入Banner */
-	static async initBanner() {
-		const banner = `
-		<div class="misty-banner">
-			<div class="misty-banner-body">
-			</div>
-			<div class="misty-banner-library">
-				<div class="misty-banner-logos"></div>
-			</div>
-		</div>
-		`;
-		$(".view:not(.hide) .homeSectionsContainer").prepend(banner);
-		$(".view:not(.hide) .section0").detach().appendTo(".view:not(.hide) .misty-banner-library");
-
-		// 插入数据
-		const data = await this.getItems(this.itemQuery);
-		console.log(data);
-		data.Items.forEach(async (item) => {
-			const detail = await this.getItem(item.Id),
+	static async appendItem(i){
+		const detail = await this.getItem(this.data.Items[i].Id),
 				itemHtml = `
 			<div class="misty-banner-item" id="${detail.Id}">
 				<img draggable="false" loading="eager" decoding="async" class="misty-banner-cover" src="${await this.getImageUrl(detail.Id, this.coverOptions)}" alt="Backdrop" style="">
@@ -148,8 +168,84 @@ class Home {
 				$(".misty-banner-logos").append(logoHtml);
 			}
 			$(".misty-banner-body").append(itemHtml);
-			console.log(item.Id, detail);
-		});
+	}
+	
+	static async bannerRoll(){
+		// 背景切换
+		//非活跃状态停止轮播
+		if(!window.location.href.endsWith("home")||document.hidden)
+			return;
+		this.index += this.index + 1 == $(".misty-banner-item").length ? -this.index : 1;
+		//已经切换到最后且总数大于10
+		if(this.index == 0 && this.data.Items.length >= 10){
+			clearInterval(this.bannerInterval);
+			let l = $(".misty-banner-item").length;
+			//剩余小于10张直接舍弃，从头开始
+			if(this.count+1==this.data.Items.length||this.data.Items.length-this.count-1<10)
+				this.count=-1;
+			//向后添加,剩余10张以上添加10张
+			for(let i=this.count+1;i<this.count+1+(this.data.Items.length-this.count-1<10?this.data.Items.length-this.count-1:10);i++){
+				await this.appendItem(i)
+			}
+			//切换到第一张
+			$(".misty-banner-body").css("left", "0%");
+			$(".misty-banner-item.active").removeClass("active");
+			let id = $(".misty-banner-item").eq(l).addClass("active").attr("id");
+			$(".misty-banner-logo.active").removeClass("active");
+			$(`.misty-banner-logo[id=${id}]`).addClass("active");
+			//从dom中移除上一轮次的横幅
+			for(let i=0;i<l;i++){
+				$(".misty-banner-item").eq(0).remove();
+			}
+			this.bannerInterval = setInterval(this.bannerRoll.bind(this), this.config.interval);
+		} else {
+			$(".misty-banner-body").css("left", -(this.index * 100).toString() + "%");
+			// 信息切换
+			$(".misty-banner-item.active").removeClass("active");
+			let id = $(".misty-banner-item").eq(this.index).addClass("active").attr("id");
+			// LOGO切换
+			$(".misty-banner-logo.active").removeClass("active");
+			$(`.misty-banner-logo[id=${id}]`).addClass("active");
+		}
+		this.count++;
+	}
+	
+	/* 插入Banner */
+	static async initBanner() {
+		const banner = `
+		<div class="misty-banner">
+			<div class="misty-banner-body">
+			</div>
+			<div class="misty-banner-library">
+				<div class="misty-banner-logos"></div>
+			</div>
+		</div>
+		`;
+		$(".view:not(.hide) .homeSectionsContainer").prepend(banner);
+		$(".view:not(.hide) .section0").detach().appendTo(".view:not(.hide) .misty-banner-library");
+
+		// 插入数据
+		this.data = {Items:[]}
+		//配置的媒体库不为空
+		if(this.config.parentIds[0] != ""){
+			//合并所有配置的媒体库的结果
+			for(let parentId of this.config.parentIds){
+				this.itemQuery.ParentId = parentId;
+				let res = await this.getItems(this.itemQuery);
+				this.data.Items = this.data.Items.concat(res.Items);
+			}
+		} else {
+			//查询所有媒体库
+			this.data = await this.getItems(this.itemQuery);
+		}
+		
+		if(this.config.random==true){
+			this.data.Items = this.itemsRandom(this.data.Items);
+		}
+		//大于10时添加10张				   
+		for(let i=0;i<(this.data.Items.length<10?this.data.Items.length:10);i++){
+			await this.appendItem(i)
+		}
 
 		// 只判断第一张海报加载完毕, 优化加载速度
 		await new Promise((resolve, reject) => {
@@ -175,21 +271,9 @@ class Home {
 		$(".section0 > div").removeClass("misty-banner-library-overflow"); // 开启overflow 防止无法滚动
 
 		// 滚屏逻辑
-		var index = 0;
+		this.index = 0;this.count = 0;
 		clearInterval(this.bannerInterval);
-		this.bannerInterval = setInterval(() => {
-			// 背景切换
-			if (window.location.href.endsWith("home") && !document.hidden) {
-				index += index + 1 == $(".misty-banner-item").length ? -index : 1;
-				$(".misty-banner-body").css("left", -(index * 100).toString() + "%");
-				// 信息切换
-				$(".misty-banner-item.active").removeClass("active");
-				let id = $(".misty-banner-item").eq(index).addClass("active").attr("id");
-				// LOGO切换
-				$(".misty-banner-logo.active").removeClass("active");
-				$(`.misty-banner-logo[id=${id}]`).addClass("active");
-			}
-		}, 8000);
+		this.bannerInterval = setInterval(this.bannerRoll.bind(this), this.config.interval);
 	}
 
 	/* 初始事件 */
