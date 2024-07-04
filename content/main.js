@@ -22,7 +22,7 @@ class Home {
 					this.init();
 				}
 			}
-		}, 100);
+		}, 233);
 	}
 
 	static async init() {
@@ -154,13 +154,13 @@ class Home {
 		// 只判断第一张海报加载完毕, 优化加载速度
 		await new Promise((resolve, reject) => {
 			let waitLoading = setInterval(() => {
-				if (document.querySelector(".misty-banner-cover").complete) {
+				if (document.querySelector(".misty-banner-cover")?.complete) {
 					clearInterval(waitLoading);
 					resolve();
 				}
 			}, 16);
 		});
-		
+
 		// 判断section0加载完毕
 		await new Promise((resolve, reject) => {
 			let waitsection0 = setInterval(() => {
@@ -170,15 +170,17 @@ class Home {
 				}
 			}, 16);
 		});
-		
+
 		$(".view:not(.hide) .section0 .emby-scrollbuttons").remove();
 		const items = $(".view:not(.hide) .section0 .emby-scroller .itemsContainer")[0].items;
-		$(".view:not(.hide) .section0").detach().appendTo(".view:not(.hide) .misty-banner-library");
-		
+		if (CommonUtils.checkType() === 'pc') {
+			$(".view:not(.hide) .section0").detach().appendTo(".view:not(.hide) .misty-banner-library");
+		}
+
 		$(".misty-loading").fadeOut(500, () => $(".misty-loading").remove());
 		await CommonUtils.sleep(150);
 		$(".view:not(.hide) .section0 .emby-scroller .itemsContainer")[0].items = items;
-		
+
 		// 置入场动画
 		let delay = 80; // 动媒体库画间隔
 		let id = $(".misty-banner-item").eq(0).addClass("active").attr("id"); // 初次信息动画
