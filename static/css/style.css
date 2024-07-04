@@ -197,7 +197,8 @@
 	height: -webkit-fill-available;
 	display: flex;
 	flex-direction: column;
-	justify-content: center
+	justify-content: center;
+	box-sizing: border-box;
 }
 
 .misty-banner-info > * {
@@ -226,10 +227,9 @@
 	text-shadow: 0 4px 10px rgb(0 0 0 / 20%);
 	/* margin-bottom: clamp(0rem, -.545rem + 2.73vw, 1.5rem); */
 	max-width: 80%;
-	display: -webkit-box !important;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 1;
+	white-space: nowrap;
 	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .misty-banner-info p {
@@ -269,23 +269,33 @@
 
 @media screen and (max-width: 62.5em) {
 	.misty-banner-info button {
-		margin-top: 0;
-	}
-}
-@media screen and (max-width: 52em) {
-	.misty-banner-info button,
-	.misty-banner-info p {
-		display: none;
+		position: absolute;
+		right: 2rem;
+		bottom: 2rem;
 	}
 }
 
 @media screen and (max-width: 35em) {
-	.misty-banner-info,
+	.misty-banner-info{
+		height: auto;
+		bottom: 0;
+		top: unset;
+
+		> div > p {
+			font-size: 1rem;
+		}
+
+		button{
+			transition-duration: 0s;
+			transition-delay: 0s;
+		}
+	}
 	.misty-banner-logo 	{
 		display: none !important;
 	}
-	.misty-banner-body{
-		opacity: 0;
+
+	.section0>div>div>.backdropCard {
+		--backdrop-cards: 1.5;
 	}
 }
 
