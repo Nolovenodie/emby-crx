@@ -1,5 +1,9 @@
 # Emby Crx
 
+## EN & CN
+- [简体中文](README.md)
+- [English](README-en.md)
+
 _Emby 增强/美化 插件 (适用于 Chrome 内核浏览器)_
 
 # 警告: 媒体库封面为原创设计, 未经授权请勿模仿使用!
