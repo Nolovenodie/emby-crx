@@ -12,7 +12,7 @@ https://user-images.githubusercontent.com/18238152/235517763-5ee7fe21-87e7-414f-
 
 ## Usage Instructions
 
-If you do not need the media library to display the library name in the center after hovering the mouse, please change the 37th line in the static\css\style.css file
+If you do not need the media library to display the library name in the center after hovering the mouse, please change the 37th line in the       static\css\style.css file
 
 ## Usage Method
 
@@ -34,12 +34,17 @@ _No need to use plugins, deploy directly to the server, users can use it seamles
 
 # EmbyServer is the container name. If your container name is not this, please change it to the correct one!
 
-# Reference tutorial (unofficial): https://mj.tk/2023/07/Emby
-docker exec EmbyServer /bin/sh -c 'cd /system/dashboard-ui && wget -O - https://tinyurl.com/2p97xcpd | sh'
+# Reference tutorial (unofficial): 
+
+    https://mj.tk/2023/07/Emby
+# Docker Install Shell Scripts:
+    docker exec EmbyServer /bin/sh -c 'cd /system/dashboard-ui && wget -O - https://tinyurl.com/2p97xcpd | sh'
 
 # Normal version
 
-# Reference tutorial (unofficial): https://cangshui.net/5167.html
+# Reference tutorial (unofficial): 
+
+    https://cangshui.net/5167.html
 
 ---
 
