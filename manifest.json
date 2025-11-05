@@ -12,10 +12,12 @@
 		"48": "static/img/icon.png",
 		"128": "static/img/icon.png"
 	},
+	
 	"browser_action": {
 		"default_icon": "static/img/icon.png",
 		"default_title": "Misty Tools."
 	},
+	
 	"content_scripts": [
 		{
 			"matches": ["<all_urls>"],
