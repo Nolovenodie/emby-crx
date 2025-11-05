@@ -34,6 +34,8 @@ class Home {
 		// Banner
 		await this.initBanner();
 		this.initEvent();
+		// Popup
+		this.initPopup();
 	}
 
 	/* 插入Loading */
@@ -137,7 +139,13 @@ class Home {
 				<div class="misty-banner-info padded-left padded-right">
 					<h1>${detail.Name}</h1>
 					<div><p>${detail.Overview}</p></div>
-					<div><button onclick="appRouter.showItem('${detail.Id}')">MORE</button></div>
+					<div><button onclick="appRouter.showItem('${detail.Id}')">PLAY NOW</button></div>
+					<br> </br>
+					<div>
+		<a hidden target="_blank" href="https://smallcounter.com/conline/1744202293/"><img alt="visitors by country counter" border="0" src="https://smallcounter.com/online/fcc.php?id=1744202293"></a>
+<a href="https://hits.sh/100.100.100.6:8096/web/index.html/"><img alt="Hits" src="https://hits.sh/100.100.100.6:8096/web/index.html.svg?view=today-total&style=for-the-badge&color=c22efa&labelColor=007ec6"/></a>
+				
+				</div>
 				</div>
 			</div>
 			`,
@@ -226,6 +234,141 @@ class Home {
 		`;
 		this.injectCode(script);
 	}
+
+	/* 插入通知弹窗 */
+	static initPopup() {
+		// --- MODIFICATION START ---
+		// Check if the popup has been shown before in this session
+		if (sessionStorage.getItem('mistyPopupShown')) {
+			return; // If yes, don't show it again
+		}
+		// --- MODIFICATION END ---
+
+		// Add popup styles to the head of the document
+		if ($("#misty-popup-styles").length === 0) {
+			const popupStyles = `
+				.misty-popup-overlay {
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					background-color: rgba(0, 0, 0, 0.7);
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					z-index: 9999;
+					opacity: 0;
+					transition: opacity 0.3s ease-in-out;
+				}
+				.misty-popup-overlay.show {
+					opacity: 1;
+				}
+				.misty-popup {
+					background-color: #333;
+					color: #fff;
+					padding: 20px;
+					border-radius: 8px;
+					position: relative;
+					max-width: 90%;
+					text-align: center;
+					box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+					transform: scale(0.9);
+					transition: transform 0.3s ease-in-out;
+				}
+				.misty-popup-overlay.show .misty-popup {
+					transform: scale(1);
+				}
+				.misty-popup-img {
+				  max-width: 100%;
+				  height: auto;
+				  border-radius: 4px;
+				  margin-bottom: 15px;
+				  display: block;
+				  object-fit: contain; /* Optional: ensures full image is shown */
+				  background-color: #000; /* Optional: fills empty space if image doesn't fill container */
+				}
+				
+				 /*.misty-popup-img {
+					max-width: 100%;
+					height: auto;
+					border-radius: 4px;
+					margin-bottom: 15px;
+				}*/
+				.misty-popup-text {
+					font-size: 1.2em;
+					line-height: 1.5;
+					margin: 0;
+				}
+				.misty-popup-close-btn {
+					position: absolute;
+					top: 10px;
+					right: 10px;
+					background: none;
+					border: none;
+					color: #fff;
+					font-size: 2em;
+					cursor: pointer;
+				}
+				@media (min-width: 768px) {
+					.misty-popup {
+						max-width: 600px;
+						padding: 40px;
+					}
+					.misty-popup-text {
+						font-size: 1.5em;
+					}
+				}
+			`;
+			$(document.head || document.documentElement).append(`<style id="misty-popup-styles">${popupStyles}</style>`);
+		}
+
+		const popupHtml = `
+		
+						<div class="misty-popup-overlay">
+				  <div class="misty-popup">
+					<button class="misty-popup-close-btn">&times;</button>
+					<a href="http://100.100.100.2/" target="_blank" style="text-decoration: none; color: inherit;">
+					  <img class="misty-popup-img" src="logosn.png" alt="Notice Image">
+					  <p class="misty-popup-text">
+						Welcome to the new SN EMBY Home page! We have updated the design to improve your experience. Enjoy!
+					  </p>
+					</a>
+				  </div>
+				</div>
+
+		`;
+
+		$("body").append(popupHtml);
+		
+		// --- MODIFICATION START ---
+		let autoCloseTimeout;
+
+		const closePopup = () => {
+			$(".misty-popup-overlay").removeClass("show");
+			setTimeout(() => {
+				$(".misty-popup-overlay").remove();
+			}, 300); // wait for fade out animation
+		};
+		
+		// Show the popup with a slight delay for the animation
+		setTimeout(() => {
+			$(".misty-popup-overlay").addClass("show");
+			// Set a flag in session storage to indicate the popup has been shown
+			sessionStorage.setItem('mistyPopupShown', 'true');
+			// Set a timeout to automatically close the popup after 20 seconds
+			autoCloseTimeout = setTimeout(closePopup, 20000);
+		}, 100);
+
+		// Add event listener to close the popup
+		$(".misty-popup-close-btn, .misty-popup-overlay").on("click", function(e) {
+			if ($(e.target).hasClass("misty-popup-overlay") || $(e.target).hasClass("misty-popup-close-btn")) {
+				clearTimeout(autoCloseTimeout); // User closed it, so cancel the auto-close
+				closePopup();
+			}
+		});
+		// --- MODIFICATION END ---
+	}
 }
 
 // 运行
@@ -234,3 +377,4 @@ if ("BroadcastChannel" in window || "postMessage" in window) {
 		Home.start();
 	}
 }
+
